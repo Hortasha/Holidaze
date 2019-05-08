@@ -10,7 +10,6 @@ router.get('/api/users', (req, res) => {
 });
 
 router.post('/api/users', (req, res, next) => {
-    console.log(req.body);
     let user = new UserModel({
         username: req.body.username,
         password: req.body.password,
@@ -24,6 +23,12 @@ router.post('/api/users', (req, res, next) => {
         if(err) { return next(err) }
 
         res.send(201, post);
+    });
+});
+
+router.post('/api/login', (req, res, next) => {
+    UserModel.findOne({ "username": req.body.username, "password": req.body.password }, function (err, users) {
+        res.send(users); 
     });
 });
 
