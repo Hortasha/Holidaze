@@ -1,7 +1,11 @@
+//Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+
+//Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -17,6 +21,12 @@ import { OrderComponent } from './pages/order/order.component';
 import { CreateroomComponent } from './pages/createroom/createroom.component';
 import { CreatehotelComponent } from './pages/createhotel/createhotel.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
+
+//Services
+import { LoginService } from './services/login/login.service';
+import { RegistrationService } from './services/registration/registration.service';
+import { HotelService } from './services/hotel/hotel.service';
+import { OrderService } from './services/order/order.service';
 
 @NgModule({
   declarations: [
@@ -38,9 +48,17 @@ import { ReservationsComponent } from './pages/reservations/reservations.compone
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    LoginService,
+    RegistrationService,
+    HotelService,
+    OrderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

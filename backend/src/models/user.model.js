@@ -1,10 +1,12 @@
 const mongoose = require('../mongodb/connect');
 
 const UserSchema = new mongoose.Schema({
-    mail: String,
+    username: String,
     password: String,
-    type: String,
-    verified: Boolean
+    email: String,
+    phone: String,
+    card: String,
+    type: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

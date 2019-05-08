@@ -12,10 +12,12 @@ router.get('/api/users', (req, res) => {
 router.post('/api/users', (req, res, next) => {
     console.log(req.body);
     let user = new UserModel({
-        mail: req.body.mail,
+        username: req.body.username,
         password: req.body.password,
-        type: req.body.type,
-        verified: false
+        email: req.body.email,
+        phone: req.body.phone,
+        card: req.body.card,
+        type: req.body.type
     });
 
     user.save(function(err, post) {

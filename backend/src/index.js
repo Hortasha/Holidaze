@@ -1,5 +1,6 @@
 //Config
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -7,6 +8,10 @@ const port = process.env.PORT || 3000;
 
 //API routes
 const usersRoute = require('./routes/users')
+
+//Cors
+app.options('*', cors());
+app.use(cors());
 
 //Application
 app.use(bodyParser.json());
