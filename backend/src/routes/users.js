@@ -4,13 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-
-router.get('/api/users', (req, res) => {
-    UserModel.find({}, function (err, users) {
-       res.send(users); 
-    });
-});
-
 router.post('/api/users', (req, res, next) => {
 
     let passwordHash;
@@ -57,12 +50,15 @@ router.post('/api/login', (req, res, next) => {
                 const token = jwt.sign({
                     username: user[0].username,
                     userId: user[0]._id
-                }, 'secret', {
+                },
+                'secret',
+                {
                     expiresIn: '1h'
                 });
 
                 return res.status(200).json({
-                    message: 'Auth Successful'
+                    message: 'Auth Successful',
+                    token: token
                 });
             }
             return res.status(401).json({
