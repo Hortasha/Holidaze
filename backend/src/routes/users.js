@@ -68,20 +68,4 @@ router.post('/api/login', (req, res, next) => {
     });
 });
 
-/*
-router.get('/api/users/:id', (req, res) => {
-    res.send(`No user with the id of ${req.params.id}`);
-});
-*/
-//req.params ":"
-//req.query "?"
-
-//app.post();
-//app.put();
-//app.delete();
-
-//400 Bad request
-
-//Validation package: Joi
-
 module.exports = router;
