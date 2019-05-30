@@ -1,1 +1,29 @@
-<h1 class="title">Contact us</h1>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title">Contact</h1>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="send(form.value)" class="form row">
+
+  <div class="form-section col-sm-6">
+    <label for="fname">First Name:</label><br>
+    <input type="text" formControlName="fname" id="fname">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="lname">Last Name:</label><br>
+    <input type="text" formControlName="lname" id="lname">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="mail">Mail:</label><br>
+    <input type="text" formControlName="mail" id="mail">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="message">Message:</label><br>
+    <input type="text" formControlName="message" id="message">
+  </div>
+  <div class="form-section col-sm-6">
+    <button type="submit">Send</button>
+  </div>
+
+</form>

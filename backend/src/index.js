@@ -7,7 +7,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 //API routes
-const usersRoute = require('./routes/users')
+const usersRoute = require('./routes/users');
+const hotelsRoute = require('./routes/hotels');
 
 //Cors
 app.options('*', cors());
@@ -15,7 +16,9 @@ app.use(cors());
 
 //Application
 app.use(bodyParser.json());
-app.use(usersRoute);
+app.use('/api/users', usersRoute);
+app.use('/api/', hotelsRoute);
+
 app.use(express.static('./../public'));
 
 //404 - Not found

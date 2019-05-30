@@ -27,6 +27,8 @@ import { LoginService } from './services/login/login.service';
 import { RegistrationService } from './services/registration/registration.service';
 import { HotelService } from './services/hotel/hotel.service';
 import { OrderService } from './services/order/order.service';
+import { RegisterSuccessComponent } from './components/register-success/register-success.component';
+import { CreateSuccessComponent } from './components/create-success/create-success.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { OrderService } from './services/order/order.service';
     OrderComponent,
     CreateroomComponent,
     CreatehotelComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    RegisterSuccessComponent,
+    CreateSuccessComponent
   ],
   imports: [
     BrowserModule,

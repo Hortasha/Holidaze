@@ -1,3 +1,45 @@
-<p>
-  createhotel works!
-</p>
+<div class="row">
+    <div class="col-12">
+      <h1 class="title">Create Hotel</h1>
+    </div>
+  </div>
+
+  <form *ngIf="!success" [formGroup]="form" (ngSubmit)="form.valid && register(form.value)" class="form row">
+    <div class="form-section col-sm-6">
+      <label for="name">Hotel Name:</label><br>
+      <input type="text" formControlName="name" [ngClass]="{'form-invalid': form.get('name').touched && form.get('name').invalid}" id="name">
+      <div *ngIf="form.get('name').touched && form.controls['name'].errors" class="error">
+        <div *ngIf="form.controls['name'].errors.required" class="error">Hotel name is required</div>
+        <div *ngIf="form.controls['name'].errors.minlength || form.controls['name'].errors.maxlength" class="error">Must only be 3-15 characters long</div>
+        <div *ngIf="form.controls['name'].errors.pattern" class="error">Hotel name should only contain letters</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="location">Location:</label><br>
+      <input type="location" formControlName="location" [ngClass]="{'form-invalid': form.get('location').touched && form.get('location').invalid}" id="location">
+      <div *ngIf="form.get('location').touched && form.controls['location'].errors" class="error">
+        <div *ngIf="form.controls['location'].errors.required" class="error">Location is required</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="image">Image url:</label><br>
+      <input type="text" formControlName="image" id="image">
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="phone">Phone:</label><br>
+      <input type="text" formControlName="phone" [ngClass]="{'form-invalid': form.get('phone').touched && form.get('phone').invalid}" id="phone">
+      <div *ngIf="form.get('phone').touched && form.controls['phone'].errors" class="error">
+        <div *ngIf="form.controls['phone'].errors.required" class="error">Phone number is required</div>
+        <div *ngIf="form.controls['phone'].errors.pattern" class="error">Can only contain numbers and spaces</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <button type="submit" [disabled]="!form.valid" [ngClass]="{'button-disable': !form.valid}">Create Hotel</button>
+    </div>
+    <br><br><br>
+    <div *ngIf="regFail" class="col-12 error">
+      <p>Creation of hotel failed. Your session might have run out. Try log in again.</p>
+    </div>
+  </form>
+
+  <app-create-success *ngIf="success"></app-create-success>

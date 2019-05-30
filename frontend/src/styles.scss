@@ -5,6 +5,10 @@
     font-family: $roboto;
 }
 
+.container {
+  padding-bottom: 30px;
+}
+
 .title {
     color: $brown;
     text-align: center;
@@ -12,4 +16,71 @@
     margin-bottom: 30px;
     font-weight: 500;
     font-size: 35px;
+}
+
+.form {
+  &-section {
+    padding-top: 15px;
+    & input {
+      width: 100%;
+      padding: 5px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      border: 1px solid $lightblue;
+    }
+
+    & select {
+      width: 100%;
+      padding: 6px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      border: 1px solid $lightblue;
+    }
+
+    & button {
+      color: $black;
+      border-radius: 5px;
+      border: none;
+      background-color: $lightgreen;
+      padding: 5px 30px;
+    }
+  }
+
+  &-invalid {
+    border: 1px solid $red !important;
+  }
+}
+
+.button {
+  &-blue {
+    color: $black;
+    border-radius: 5px;
+    border: none;
+    background-color: $lightblue;
+    padding: 5px 30px;
+  }
+
+  &-disable {
+    background-color: lightgray !important;
+  }
+
+  &-red {
+    color: $black;
+    border-radius: 5px;
+    border: none;
+    background-color: $lightred;
+    padding: 5px 30px;
+  }
+}
+
+.section {
+  margin-top: 50px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.error {
+  color: $red;
 }

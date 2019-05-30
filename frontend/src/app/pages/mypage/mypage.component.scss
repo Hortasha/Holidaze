@@ -1,0 +1,16 @@
+@import "./../../../variables.scss";
+
+.option {
+  cursor: pointer;
+  border: dotted $lightblue 1px;
+  margin-bottom: 10px;
+
+  &-header {
+    text-align: center;
+    color: $blue;
+  }
+
+  &-description {
+
+  }
+}

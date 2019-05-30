@@ -1,7 +1,42 @@
-<h1 class="title">Welcome</h1>
-<form>
-  <input type="text">
-  <input type="text">
-  <input type="text">
-  <button routerLink="/results">Results</button>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title">Welcome</h1>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="search(form.value)" class="form row">
+
+  <div class="form-section col-sm-6">
+    <label for="location">Location:</label><br>
+    <input type="text" formControlName="location" id="location">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="checkin">Check-in:</label><br>
+    <input type="text" formControlName="checkin" id="checkin">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="checkout">Check-out:</label><br>
+    <input type="text" formControlName="checkout" id="checkout">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="people">People:</label><br>
+    <input type="text" formControlName="people" id="people">
+  </div>
+  <div class="form-section col-sm-6">
+    <button type="submit">Search</button>
+  </div>
+
 </form>
+
+<div class="row section">
+
+  <div class="col-12">
+      <img src="https://cdn.travelbook.ph/jalan/images/pict2L/Y8/Y966718/Y966718013.jpg" alt="">
+      <br><br>
+  </div>
+
+  <div class="col-12">
+    <button class="button-blue">Featured Hotels</button>
+  </div>
+
+</div>

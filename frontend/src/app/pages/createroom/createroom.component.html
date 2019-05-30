@@ -1,3 +1,75 @@
-<p>
-  createroom works!
-</p>
+<div class="row">
+    <div class="col-12">
+      <h1 class="title">Create Room</h1>
+    </div>
+  </div>
+
+  <form *ngIf="!success" [formGroup]="form" (ngSubmit)="form.valid && register(form.value)" class="form row">
+    <div class="form-section col-sm-6">
+      <label for="type">Type:</label><br>
+      <input type="text" formControlName="type" [ngClass]="{'form-invalid': form.get('type').touched && form.get('type').invalid}" id="type">
+      <div *ngIf="form.get('type').touched && form.controls['type'].errors" class="error">
+        <div *ngIf="form.controls['type'].errors.required" class="error">Room type is required</div>
+        <div *ngIf="form.controls['type'].errors.minlength || form.controls['type'].errors.maxlength" class="error">Must only be 3-15 characters long</div>
+        <div *ngIf="form.controls['type'].errors.pattern" class="error">Room type should only contain letters</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="hotel">Hotel:</label>
+      <select id="hotel" formControlName="hotel">
+        <option *ngFor="let hotel of hotels" [ngValue]="hotel._id">{{ hotel.name }}</option>
+      </select>
+      <div *ngIf="form.get('hotel').touched && form.controls['hotel'].errors" class="error">
+        <div *ngIf="form.controls['hotel'].errors.required" class="error">Room must belong to a hotel</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="max_occupancy">Max Occupancy:</label><br>
+      <input type="number" formControlName="max_occupancy" [ngClass]="{'form-invalid': form.get('max_occupancy').touched && form.get('max_occupancy').invalid}" id="max_occupancy">
+      <div *ngIf="form.get('max_occupancy').touched && form.controls['max_occupancy'].errors" class="error">
+        <div *ngIf="form.controls['max_occupancy'].errors.required" class="error">Max Occupancy is required</div>
+        <div *ngIf="form.controls['max_occupancy'].errors.pattern" class="error">Can only contain numbers</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="beds">Beds:</label><br>
+      <input type="number" formControlName="beds" [ngClass]="{'form-invalid': form.get('beds').touched && form.get('beds').invalid}" id="beds">
+      <div *ngIf="form.get('beds').touched && form.controls['beds'].errors" class="error">
+        <div *ngIf="form.controls['beds'].errors.required" class="error">Beds is required</div>
+        <div *ngIf="form.controls['beds'].errors.pattern" class="error">Can only contain numbers</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="image">Image:</label><br>
+      <input type="text" formControlName="image" id="image">
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="price">Price:</label><br>
+      <input type="number" formControlName="price" [ngClass]="{'form-invalid': form.get('price').touched && form.get('price').invalid}" id="price">
+      <div *ngIf="form.get('price').touched && form.controls['price'].errors" class="error">
+        <div *ngIf="form.controls['price'].errors.required" class="error">Price is required</div>
+        <div *ngIf="form.controls['price'].errors.pattern" class="error">Can only contain numbers</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <button type="submit" [disabled]="!form.valid" [ngClass]="{'button-disable': !form.valid}">Create Hotel</button>
+    </div>
+    <br><br><br>
+    <div *ngIf="regFail" class="col-12 error">
+      <p>Creation of hotel failed. Your session might have run out. Try log in again.</p>
+    </div>
+  </form>
+
+  <app-create-success *ngIf="success"></app-create-success>
+
+
+<!--
+type: String,
+beds: number,
+price: number,
+reserved: [
+  { from: String,
+    to: String
+  }
+]
+-->

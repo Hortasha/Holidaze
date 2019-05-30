@@ -1,8 +1,8 @@
 <nav>
   <a routerLink="/" routerLinkActive="active">Home</a>
   <a routerLink="/contact" routerLinkActive="active">Contact</a>
-  <a routerLink="/login" routerLinkActive="active">Login</a>
-  <a routerLink="/register" routerLinkActive="active">Register</a>
-  <a routerLink="/mypage" routerLinkActive="active">My Page</a>
+  <a *ngIf="env.token === ''" routerLink="/login" routerLinkActive="active">Login</a>
+  <a *ngIf="env.token === ''" routerLink="/register" routerLinkActive="active">Register</a>
+  <a *ngIf="env.token !== ''" routerLink="/mypage" routerLinkActive="active">{{ env.username }}</a>
 </nav>
 <img src="./../../../assets/img/logo.png" alt="Holidaze" class="logo">

@@ -1,32 +1,63 @@
-<h1 class="title">Register</h1>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title">Register</h1>
+  </div>
+</div>
 
-<form [formGroup]="form" (ngSubmit)="register(form.value)" class="form">
-  <div class="form-section">
+<form *ngIf="!success" [formGroup]="form" (ngSubmit)="form.valid && register(form.value)" class="form row">
+  <div class="form-section col-sm-6">
     <label for="username">Username:</label><br>
-    <input type="text" formControlName="username" id="username">
+    <input type="text" formControlName="username" [ngClass]="{'form-invalid': form.get('username').touched && form.get('username').invalid}" id="username">
+    <div *ngIf="form.get('username').touched && form.controls['username'].errors" class="error">
+      <div *ngIf="form.controls['username'].errors.required" class="error">Username is required</div>
+      <div *ngIf="form.controls['username'].errors.minlength || form.controls['username'].errors.maxlength" class="error">Must only be 3-12 characters long</div>
+      <div *ngIf="form.controls['username'].errors.pattern" class="error">Username should only contain letters</div>
+    </div>
   </div>
-  <div class="form-section">
+  <div class="form-section col-sm-6">
     <label for="password">Password:</label><br>
-    <input type="password" formControlName="password" id="password">
+    <input type="password" formControlName="password" [ngClass]="{'form-invalid': form.get('password').touched && form.get('password').invalid}" id="password">
+    <div *ngIf="form.get('password').touched && form.controls['password'].errors" class="error">
+      <div *ngIf="form.controls['password'].errors.required" class="error">Password is required</div>
+      <div *ngIf="form.controls['password'].errors.minlength || form.controls['password'].errors.maxlength" class="error">Must only be 8-20 characters long</div>
+    </div>
   </div>
-  <div class="form-section">
+  <div class="form-section col-sm-6">
     <label for="email">E-mail:</label><br>
-    <input type="text" formControlName="email" id="email">
+    <input type="text" formControlName="email" [ngClass]="{'form-invalid': form.get('email').touched && form.get('email').invalid}" id="email">
+    <div *ngIf="form.get('email').touched && form.controls['email'].errors" class="error">
+      <div *ngIf="form.controls['email'].errors.required" class="error">E-mail is required</div>
+      <div *ngIf="form.controls['email'].errors.email" class="error">Must be a valid E-mail</div>
+    </div>
   </div>
-  <div class="form-section">
+  <div class="form-section col-sm-6">
     <label for="phone">Phone:</label><br>
-    <input type="text" formControlName="phone" id="phone">
+    <input type="text" formControlName="phone" [ngClass]="{'form-invalid': form.get('phone').touched && form.get('phone').invalid}" id="phone">
+    <div *ngIf="form.get('phone').touched && form.controls['phone'].errors" class="error">
+      <div *ngIf="form.controls['phone'].errors.required" class="error">Phone number is required</div>
+      <div *ngIf="form.controls['phone'].errors.pattern" class="error">Can only contain numbers and spaces</div>
+    </div>
   </div>
-  <div class="form-section">
+  <div class="form-section col-sm-6">
     <label for="card">Card:</label><br>
-    <input type="text" formControlName="card" id="card">
+    <input type="text" formControlName="card" [ngClass]="{'form-invalid': form.get('card').touched && form.get('card').invalid}" id="card">
+    <div *ngIf="form.get('card').touched && form.controls['card'].errors" class="error">
+      <div *ngIf="form.controls['card'].errors.pattern" class="error">Can only contain numbers</div>
+    </div>
   </div>
-  <div class="form-section">
-    Type:<br>
-    <input type="radio" formControlName="type" id="type1" value="User"><label for="type1">User</label><br>
-    <input type="radio" formControlName="type" id="type2" value="Hotel"><label for="type2">Hotel</label>
+  <div class="form-section col-sm-6">
+    <label for="type">Type</label>
+    <select id="type" formControlName="type">
+      <option *ngFor="let type of types" [ngValue]="type">{{ type }}</option>
+    </select>
   </div>
-  <div class="form-section">
-    <button type="submit">Register</button>
+  <div class="form-section col-sm-6">
+    <button type="submit" [disabled]="!form.valid" [ngClass]="{'button-disable': !form.valid}">Register</button>
+  </div>
+  <br><br><br>
+  <div *ngIf="regFail" class="col-12 error">
+    <p>Registration failed. Username or email may allready be taken</p>
   </div>
 </form>
+
+<app-register-success *ngIf="success"></app-register-success>

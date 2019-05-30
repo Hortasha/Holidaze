@@ -1,15 +1,29 @@
-<h1 class="title">Login</h1>
+<div class="row">
+  <div class="col-12">
+      <h1 class="title">Login</h1>
+  </div>
+</div>
 
-<form [formGroup]="form" (ngSubmit)="login(form.value)" class="form">
-  <div class="form-section">
+<form [formGroup]="form" (ngSubmit)="form.valid && login(form.value)" class="form row">
+  <div class="form-section col-sm-6">
     <label for="username">Username:</label><br>
-    <input type="text" formControlName="username" id="username">
+    <input type="text" formControlName="username" [ngClass]="{'form-invalid': form.get('username').touched && form.get('username').invalid}" id="username">
+    <div *ngIf="form.get('username').touched && form.controls['username'].errors" class="error">
+      <div *ngIf="form.controls['username'].errors.required" class="error">Username is required</div>
+    </div>
   </div>
-  <div class="form-section">
+  <div class="form-section col-sm-6">
     <label for="password">Password:</label><br>
-    <input type="password" formControlName="password" id="password">
+    <input type="password" formControlName="password" [ngClass]="{'form-invalid': form.get('password').touched && form.get('password').invalid}" id="password">
+    <div *ngIf="form.get('password').touched && form.controls['password'].errors" class="error">
+      <div *ngIf="form.controls['password'].errors.required" class="error">Password is required</div>
+    </div>
   </div>
-  <div class="form-section">
-    <button type="submit">Login</button>
+  <div class="form-section col-sm-6">
+    <button type="submit" [disabled]="!form.valid" [ngClass]="{'button-disable': !form.valid}">Login</button>
+  </div>
+  <br><br><br>
+  <div *ngIf="authFail" class="col-12 error">
+    <p>Authentication failed. Make sure username and password is correct.</p>
   </div>
 </form>
