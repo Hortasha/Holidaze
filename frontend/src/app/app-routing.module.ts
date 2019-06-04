@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'booking', component: BookingComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'hotel/:hotelid', component: HotelComponent},
-  { path: 'hotel/:hotelid/:roomid', component: RoomComponent},
+  { path: 'room/:roomid', component: RoomComponent},
   { path: 'createhotel', component: CreatehotelComponent},
   { path: 'createroom', component: CreateroomComponent},
   { path: 'results', component: ResultComponent},

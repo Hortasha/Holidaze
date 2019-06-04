@@ -1,3 +1,48 @@
-<p>
-  room works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title" *ngIf="room">{{ room.type }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngIf="room" class="col-12">
+    <img [src]="room.image" [alt]="room.type" class="image">
+  </div>
+  <div class="col-sm-6 room-info" *ngIf="room">
+    <p><b>Location:</b> {{ room.location }}</p>
+    <p><b>Price:</b> {{ room.price }}$</p>
+  </div>
+  <div class="col-sm-6 room-info"  *ngIf="room">
+    <p><b>Beds:</b> {{ room.beds }}</p>
+    <p><b>Max Occupancy:</b> {{ room.max_occupancy }}</p>
+  </div>
+</div>
+
+<form class="row form" [formGroup]="form" (ngSubmit)="form.valid && register(form.value)" *ngIf="env.token !== '' && env.type === 'User' && success === false">
+    <div class="col-12">
+      <h1 class="title" *ngIf="room">Make Reservation</h1>
+    </div>
+  <div class="form-section col-sm-6">
+    <label for="from">From:</label><br>
+    <input type="date" formControlName="from" [ngClass]="{'form-invalid': form.get('from').touched && form.get('from').invalid}" id="from">
+    <div *ngIf="form.get('from').touched && form.controls['from'].errors" class="error">
+      <div *ngIf="form.controls['from'].errors.required" class="error">Fill in reservation from</div>
+    </div>
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="to">To:</label><br>
+    <input type="date" formControlName="to" [ngClass]="{'form-invalid': form.get('to').touched && form.get('to').invalid}" id="to">
+    <div *ngIf="form.get('to').touched && form.controls['to'].errors" class="error">
+      <div *ngIf="form.controls['to'].errors.required" class="error">Fill in reservation to</div>
+    </div>
+  </div>
+  <div class="form-section col-sm-6">
+    <button type="submit" [disabled]="!form.valid" [ngClass]="{'button-disable': !form.valid}">Make Reservation</button>
+  </div>
+  <br><br><br>
+  <div *ngIf="regFail" class="col-12 error">
+    <p>Reservation failed, this room has allready been reserved for these dates or dates are written incorrectly.</p>
+  </div>
+</form>
+
+<app-register-success *ngIf="success"></app-register-success>

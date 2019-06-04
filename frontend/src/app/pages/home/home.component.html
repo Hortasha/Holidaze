@@ -4,39 +4,52 @@
   </div>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="search(form.value)" class="form row">
+<div *ngIf="!advanced" class="form-section">
+  Hotel Name:
+  <input type="text" (keyup)="search($event)">
+  <button (click)="toggleSearch()" class="advanced">Search for Room</button>
+</div>
 
+<form *ngIf="advanced" [formGroup]="form" (ngSubmit)="searchRoom(form.value)" class="form row">
   <div class="form-section col-sm-6">
     <label for="location">Location:</label><br>
     <input type="text" formControlName="location" id="location">
-  </div>
-  <div class="form-section col-sm-6">
-    <label for="checkin">Check-in:</label><br>
-    <input type="text" formControlName="checkin" id="checkin">
-  </div>
-  <div class="form-section col-sm-6">
-    <label for="checkout">Check-out:</label><br>
-    <input type="text" formControlName="checkout" id="checkout">
   </div>
   <div class="form-section col-sm-6">
     <label for="people">People:</label><br>
     <input type="text" formControlName="people" id="people">
   </div>
   <div class="form-section col-sm-6">
+    <label for="checkin">Check-in:</label><br>
+    <input type="date" formControlName="checkin" id="checkin">
+  </div>
+  <div class="form-section col-sm-6">
+    <label for="checkout">Check-out:</label><br>
+    <input type="date" formControlName="checkout" id="checkout">
+  </div>
+  <div class="form-section col-sm-6">
     <button type="submit">Search</button>
   </div>
-
+  <div class="form-section col-sm-6">
+    <button (click)="toggleSearch()" class="advanced">Search for Hotel</button>
+  </div>
 </form>
 
-<div class="row section">
-
-  <div class="col-12">
-      <img src="https://cdn.travelbook.ph/jalan/images/pict2L/Y8/Y966718/Y966718013.jpg" alt="">
-      <br><br>
+<div class="row section" *ngIf="!advanced">
+  <div *ngFor="let hotel of hotels" class="col-sm-6 option">
+    <h3 class="title-lesser">{{ hotel.name }}</h3>
+    <img [src]="hotel.image" [alt]="hotel.name" class="image">
+    <p><b>Location:</b> {{ hotel.location }}</p>
+    <button class="button-blue" routerLink="/hotel/{{hotel._id}}" routerLinkActive="router-link-active" >View Hotel</button>
   </div>
+</div>
 
-  <div class="col-12">
-    <button class="button-blue">Featured Hotels</button>
+<div class="row section" *ngIf="advanced">
+  <div *ngFor="let room of rooms" class="col-sm-6 option">
+    <h3 class="title-lesser">{{ room.type }}</h3>
+    <img [src]="room.image" [alt]="room.type" class="image">
+    <p><b>Location:</b> {{ room.location }}</p>
+    <p><b>Price:</b> {{ room.price }}$</p>
+    <button class="button-blue" routerLink="/room/{{room._id}}" routerLinkActive="router-link-active" >View Room</button>
   </div>
-
 </div>

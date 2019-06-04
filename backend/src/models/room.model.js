@@ -7,9 +7,11 @@ const RoomSchema = new mongoose.Schema({
     max_occupancy: Number,
     price: Number,
     image: String,
+    location: String,
     reserved: [{
-        from: String,
-        to: String
+        from: Date,
+        to: Date,
+        userId: String
     }]
 });
 

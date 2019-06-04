@@ -53,6 +53,26 @@ export class HotelService {
     return this.http.get(`${this.api}/api/hotels/self`, this.httpOptions);
   }
 
+  getRoomsByHotel(id) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'application/json'
+      })
+    };
+    return this.http.get(`${this.api}/api/hotel/rooms/${id}`, this.httpOptions);
+  }
+
+  getHotelById(id) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'application/json'
+      })
+    };
+    return this.http.get(`${this.api}/api/hotels/${id}`, this.httpOptions);
+  }
+
   createRoom(values: any) {
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -70,5 +90,69 @@ export class HotelService {
       price: values.price,
       image: values.image
     }, this.httpOptions);
+  }
+
+  getSearch(values: any) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'application/json'
+      })
+    };
+
+    let quary = '';
+    if (values.people) {
+      quary += `people=${values.people}&`;
+    }
+    if (values.location) {
+      quary += `location=${values.location}&`;
+    }
+    if (values.checkin) {
+      quary += `from=${values.checkin}&`;
+    }
+    if (values.checkout) {
+      quary += `to=${values.checkout}&`;
+    }
+
+    return this.http.get(`${this.api}/api/rooms?${quary}`, this.httpOptions);
+  }
+
+  getRoomById(id) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'application/json'
+      })
+    };
+    return this.http.get(`${this.api}/api/rooms/${id}`, this.httpOptions);
+  }
+
+  reserve(id, values) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'application/json',
+        authorization: `Bearer ${environment.token}`
+      })
+    };
+
+    return this.http.post(`${this.api}/api/rooms/reserve`, {
+      roomId: id,
+      from: values.from,
+      to: values.to
+    }, this.httpOptions);
+  }
+
+  reserved() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'application/json',
+        authorization: `Bearer ${environment.token}`
+      })
+    };
+
+    return this.http.get(`${this.api}/api/reservations`, this.httpOptions);
+
   }
 }

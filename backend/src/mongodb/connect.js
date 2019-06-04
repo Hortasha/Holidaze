@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 //Desktop location: C:\MongoDB\Server\4.0
 //Desktop dev env

@@ -1,0 +1,14 @@
+@import "./../../../variables.scss";
+
+.advanced {
+  color: $black;
+  border-radius: 5px;
+  border: none;
+  background-color: $lightblue;
+  padding: 5px 30px;
+  float: right;
+}
+
+.image {
+  width: 100%;
+}

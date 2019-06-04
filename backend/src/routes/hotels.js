@@ -61,60 +61,51 @@ router.post('/hotels', checkAuth, (req, res, next) => {
     });
 });
 
-//Delete Hotel
-
 //Get room search
 router.get('/rooms', (req, res, next) => {
-  let query = {};
-  if(req.query.beds) {
-      query.beds = req.query.beds;
-  }
-  
+  let query = {};  
   if(req.query.people) {
-      query.max_occupancy = {$gt: req.query.people};
+      query.max_occupancy = {$gt: req.query.people - 1};
   }
 
-  if(req.query.minimumPrice || req.query.maximumPrice) {
-      query.price = {}
-      if(req.query.minimumPrice) {
-          query.price.$gte = req.query.minimumPrice;
-      }
-
-      if(req.query.maximumPrice) {
-          query.price.$lte = req.query.maximumPrice;
-      }
+  if(req.query.location) {
+      let reg = new RegExp(req.query.location, 'i');
+      query.location = { $regex: reg }
   }
 
   if(req.query.from && req.query.to) {
       query.reserved = {
           $not: {
-              $elemMatch: {from: {$lt: req.query.to}, to: {$gt: req.query.from}}
+              $elemMatch: {from: {$lte: new Date(req.query.from)}, to: {$gte: new Date(req.query.to)}}
           }
       }
   }
 
-
-  RoomModel.find(query, function(err, rooms){
-      if(err){
-          res.send(err);
-      } else {
-          res.json(rooms);
-      }
-  });
+    RoomModel.find(query, function(err, rooms){
+        if(err){
+            res.send(err);
+        } else {
+            for(let i = 0; i < rooms.length; i++) {
+                rooms[i].reserved = [];
+            }
+            res.json(rooms);
+        }
+    });
 });
 
 //Get room by id
 router.get('/rooms/:id', (req, res, next) => {
-  HotelModel.find({ _id: req.params.id }, function(err, room) {
-      return res.status(200).send(room);
-  });
+    RoomModel.find({ _id: req.params.id }, function(err, room) {
+        room[0].reserved = [];
+        return res.status(200).send(room);
+    })
 });
 
-//Create new room (NEXT with UI then TEST)
+//Create new room
 router.post('/rooms', checkAuth, (req, res, next) => {
     console.log(req.body);
-    HotelModel.find({ _id: req.body.hotelId }, function(err, room) {
-        if(room.length > 0) {
+    HotelModel.find({ _id: req.body.hotelId }, function(err, hotel) {
+        if(hotel.length > 0) {
             let room = new RoomModel({
             hotelId: req.body.hotelId,
             type: req.body.type,
@@ -122,23 +113,91 @@ router.post('/rooms', checkAuth, (req, res, next) => {
             max_occupancy: req.body.max_occupancy,
             price: req.body.price,
             image: req.body.image,
-            reserved: []
+            reserved: [],
+            location: hotel[0].location
             });
 
             room.save(function(err, post) {
             if(err) { return next(err) }
-
-            return res.status(201).send({
-                message: 'room created'
+                return res.status(201).send({
+                    message: 'room created'
+                });
             });
+        }
+    });
+});
+
+//Get room by hotel Id
+router.get('/hotel/rooms/:id', (req, res, next) => {
+    RoomModel.find({ hotelId: req.params.id }, function(err, rooms) {
+        for(let i = 0; i < rooms.length; i++) {
+            rooms[i].reserved = [];
+        }
+        return res.status(200).send(rooms);
+    })
+});
+
+//Reserve Room
+router.post('/rooms/reserve', checkAuth, (req, res, next) => {
+    RoomModel.find({
+        _id: req.body.roomId,
+        reserved: {
+            $not: {
+                $elemMatch: {from: {$lte: new Date(req.body.from)}, to: {$gte: new Date(req.body.to)}}
+            }
+        }
+    }, function(err, room) {
+        if(room.length === 0) {
+            return res.status(404).json({
+                message: 'Room does not exist or not available room'
+            });
+        } else {
+            RoomModel.findOneAndUpdate(
+                {
+                    _id: req.body.roomId
+                }, {
+                    $push: {
+                        reserved: {
+                            from: req.body.from,
+                            to: req.body.to,
+                            userId: req.userData.userId
+                        }
+                    }
+            }, {
+                safe: true, new: true
+            }, function (err, result) {
+                if(err) { return next(err) }
+                return res.status(200).send(result);
             })
         }
     });
 });
 
+//Get Reservations
+router.get('/reservations', checkAuth, (req, res, next) => {
+    UserModel.find({ _id: req.userData.userId }, function(err, user) {
+        if(user[0].type === "User") {
+            RoomModel.find({}, { reserved: { $elemMatch:{ userId: req.userData.userId } } }, function(err, reservations) {
+                if(err) { return next(err) }
+                return res.status(200).send(reservations);
+            });
+        } else {
+            HotelModel.find({ userId: req.userData.userId }, function(err, hotels) {
+                
+                let query = [
+                ]
 
-//Reserve Room
-
-//Delete Room
+                for(let i = 0; i < hotels.length; i++) {
+                    query.push(hotels[i]._id);
+                }
+                
+                RoomModel.find({hotelId: { $in: query } }, function(err, rooms) {
+                    if(err) { return next(err) }
+                    return res.status(200).send(rooms);
+                })
+            });
+        }
+    });
+});
 
 module.exports = router;

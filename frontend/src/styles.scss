@@ -16,6 +16,11 @@
     margin-bottom: 30px;
     font-weight: 500;
     font-size: 35px;
+
+    &-lesser {
+      color: $brown;
+      font-size: 25px;
+    }
 }
 
 .form {
@@ -78,9 +83,14 @@
 }
 
 img {
+  width: 100%;
   max-width: 100%;
 }
 
 .error {
   color: $red;
+}
+
+.option {
+  margin-bottom: 40px;
 }

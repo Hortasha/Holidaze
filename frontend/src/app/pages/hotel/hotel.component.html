@@ -1,3 +1,15 @@
-<p>
-  hotel works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title" *ngIf="hotel">Rooms for {{ hotel.name }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let room of rooms" class="col-sm-6">
+    <h3 class="title-lesser">{{ room.type }}</h3>
+    <img [src]="room.image" [alt]="room.type" class="image">
+    <p><b>Location:</b> {{ room.location }}</p>
+    <p><b>Price:</b> {{ room.price }}$</p>
+    <button class="button-blue" routerLink="/room/{{room._id}}" routerLinkActive="router-link-active" >View Room</button>
+  </div>
+</div>
