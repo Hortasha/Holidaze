@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<form class="row form" [formGroup]="form" (ngSubmit)="form.valid && register(form.value)" *ngIf="env.token !== '' && env.type === 'User' && success === false">
+<form class="row form" [formGroup]="form" (ngSubmit)="form.valid && register(form.value)" *ngIf="env.token !== '' && (env.type === 'User' || env.type === 'Admin') && success === false">
     <div class="col-12">
       <h1 class="title" *ngIf="room">Make Reservation</h1>
     </div>

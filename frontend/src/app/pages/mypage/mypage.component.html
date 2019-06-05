@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="row option" (click)="orders()">
+<div *ngIf="type === 'User' || type === 'Admin'" class="row option" (click)="orders()">
   <div class="col-sm-6 option-header">
     <h2>My Orders</h2>
   </div>
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div class="row option" (click)="createHotel()">
+<div *ngIf="type === 'Hotel' || type === 'Admin'" class="row option" (click)="createHotel()">
   <div class="col-sm-6 option-header">
     <h2>Create Hotel</h2>
   </div>
@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<div class="row option" (click)="createRoom()">
+<div *ngIf="type === 'Hotel' || type === 'Admin'" class="row option" (click)="createRoom()">
   <div class="col-sm-6 option-header">
     <h2>Create Room</h2>
   </div>
@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="row option" (click)="reservations()">
+<div *ngIf="type === 'Hotel' || type === 'Admin'" class="row option" (click)="reservations()">
   <div class="col-sm-6 option-header">
     <h2>Reservations</h2>
   </div>
@@ -39,12 +39,12 @@
     <p>Check what reservations have been made.</p>
   </div>
 </div>
-<div class="row option" (click)="settings()">
+<div class="row option" (click)="contact()">
   <div class="col-sm-6 option-header">
-    <h2>Settings</h2>
+    <h2>Contact Submissions</h2>
   </div>
   <div class="col-sm-6 option-description">
-    <p>Make changes to your card information, username or password.</p>
+    <p>View submissions from contact page</p>
   </div>
 </div>
 <div class="row option" (click)="home()">
@@ -55,13 +55,3 @@
     <p>Go back to your home page.</p>
   </div>
 </div>
-
-
-<!--
-  - My Orders
-  - Create Hotel
-  - Create Room
-  - Reservations
-  - Home
-  - Settings
--->

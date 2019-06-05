@@ -18,5 +18,4 @@ export class ReservationsComponent implements OnInit {
       console.log(err);
     });
   }
-
 }

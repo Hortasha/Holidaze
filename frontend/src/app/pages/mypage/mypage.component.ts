@@ -37,7 +37,8 @@ export class MypageComponent implements OnInit {
     this.router.navigateByUrl('/reservation');
   }
 
-  settings() {
+  contact() {
+    this.router.navigateByUrl('/results');
   }
 
   home() {

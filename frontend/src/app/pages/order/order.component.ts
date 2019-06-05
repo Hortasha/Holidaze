@@ -13,10 +13,10 @@ export class OrderComponent implements OnInit {
 
   ngOnInit() {
     this.hotelService.reserved().subscribe((res) => {
+      console.log(res);
       this.orders = res;
     }, (err) => {
       console.log(err);
     });
   }
-
 }

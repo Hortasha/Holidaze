@@ -1,3 +1,13 @@
-<p>
-  result works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title">Contact Submissions</h1>
+  </div>
+</div>
+
+<div class="row section">
+  <div *ngFor="let contact of contacts"  class="col-sm-6 option">
+    <h3 class="title-lesser">From: {{contact.fname}} {{contact.lname}}</h3>
+    <p><b>E-mail:</b> {{contact.email}}</p>
+    <p><b>Message:</b> {{contact.message}}</p>
+  </div>
+</div>

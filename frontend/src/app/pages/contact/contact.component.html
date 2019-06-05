@@ -4,26 +4,44 @@
   </div>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="send(form.value)" class="form row">
-
-  <div class="form-section col-sm-6">
-    <label for="fname">First Name:</label><br>
-    <input type="text" formControlName="fname" id="fname">
-  </div>
-  <div class="form-section col-sm-6">
-    <label for="lname">Last Name:</label><br>
-    <input type="text" formControlName="lname" id="lname">
-  </div>
-  <div class="form-section col-sm-6">
-    <label for="mail">Mail:</label><br>
-    <input type="text" formControlName="mail" id="mail">
-  </div>
-  <div class="form-section col-sm-6">
-    <label for="message">Message:</label><br>
-    <input type="text" formControlName="message" id="message">
-  </div>
-  <div class="form-section col-sm-6">
-    <button type="submit">Send</button>
-  </div>
-
-</form>
+<form *ngIf="!success" [formGroup]="form" (ngSubmit)="form.valid && send(form.value)" class="form row">
+    <div class="form-section col-sm-6">
+      <label for="fname">First Name:</label><br>
+      <input type="text" formControlName="fname" [ngClass]="{'form-invalid': form.get('fname').touched && form.get('fname').invalid}" id="fname">
+      <div *ngIf="form.get('fname').touched && form.controls['fname'].errors" class="error">
+        <div *ngIf="form.controls['fname'].errors.required" class="error">Name is required</div>
+        <div *ngIf="form.controls['fname'].errors.pattern" class="error">Should only contain letters</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="lname">Last Name:</label><br>
+      <input type="text" formControlName="lname" [ngClass]="{'form-invalid': form.get('lname').touched && form.get('lname').invalid}" id="lname">
+      <div *ngIf="form.get('lname').touched && form.controls['lname'].errors" class="error">
+        <div *ngIf="form.controls['lname'].errors.required" class="error">Name is required</div>
+        <div *ngIf="form.controls['lname'].errors.pattern" class="error">Should only contain letters</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="email">E-mail:</label><br>
+      <input type="text" formControlName="email" [ngClass]="{'form-invalid': form.get('email').touched && form.get('email').invalid}" id="email">
+      <div *ngIf="form.get('email').touched && form.controls['email'].errors" class="error">
+        <div *ngIf="form.controls['email'].errors.required" class="error">E-mail is required</div>
+        <div *ngIf="form.controls['email'].errors.email" class="error">Must be a valid E-mail</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <label for="message">Message:</label><br>
+      <input type="text" formControlName="message" [ngClass]="{'form-invalid': form.get('message').touched && form.get('message').invalid}" id="message">
+      <div *ngIf="form.get('message').touched && form.controls['message'].errors" class="error">
+        <div *ngIf="form.controls['message'].errors.required" class="error">Message is required</div>
+      </div>
+    </div>
+    <div class="form-section col-sm-6">
+      <button type="submit" [disabled]="!form.valid" [ngClass]="{'button-disable': !form.valid}">Send</button>
+    </div>
+    <br><br><br>
+    <div *ngIf="regFail" class="col-12 error">
+      <p>Try again later</p>
+    </div>
+  </form>
+  <app-create-success *ngIf="success"></app-create-success>

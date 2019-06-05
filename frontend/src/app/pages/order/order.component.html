@@ -1,3 +1,15 @@
-<p>
-  order works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title">Orders</h1>
+  </div>
+</div>
+
+<div class="row section">
+  <div *ngFor="let order of orders"  class="col-sm-6 option">
+    <h3 class="title-lesser">Room ID: {{order._id}}</h3>
+    <div *ngFor="let info of order.reserved">
+        <p><b>From:</b> {{ info.from }}</p>
+        <p><b>To:</b> {{ info.to }}</p>
+    </div>
+  </div>
+</div>

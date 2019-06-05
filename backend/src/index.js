@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 //API routes
 const usersRoute = require('./routes/users');
 const hotelsRoute = require('./routes/hotels');
+const contactRoute = require('./routes/contact');
 
 //Cors
 app.options('*', cors());
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/users', usersRoute);
 app.use('/api/', hotelsRoute);
+app.use('/api/', contactRoute);
 
 app.use(express.static('./../public'));
 

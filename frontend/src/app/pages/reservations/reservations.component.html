@@ -1,3 +1,17 @@
-<p>
-  reservations works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <h1 class="title">Reservations</h1>
+  </div>
+</div>
+
+<div class="row section">
+  <div *ngFor="let reserve of reserved"  class="col-sm-6 option">
+    <h3 class="title-lesser">Room: {{reserve.type}}</h3>
+    <p><b>Hotel:</b> {{ reserve.hotelId }}</p>
+    <div *ngFor="let reservations of reserve.reserved">
+        <p><b>Guest:</b> {{ reservations.userId }}</p>
+        <p><b>From:</b> {{ reservations.from }}</p>
+        <p><b>To:</b> {{ reservations.to }}</p>
+    </div>
+  </div>
+</div>
