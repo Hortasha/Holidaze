@@ -27,11 +27,8 @@
     <label for="checkout">Check-out:</label><br>
     <input type="date" formControlName="checkout" id="checkout">
   </div>
-  <div class="form-section col-sm-6">
-    <button type="submit">Search</button>
-  </div>
-  <div class="form-section col-sm-6">
-    <button (click)="toggleSearch()" class="advanced">Search for Hotel</button>
+  <div class="form-section col-sm-12">
+    <button type="submit">Search</button><button (click)="toggleSearch()" class="advanced">Search for Hotel</button>
   </div>
 </form>
 
