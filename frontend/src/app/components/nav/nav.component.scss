@@ -16,5 +16,16 @@ nav {
         color: $blue;
         padding-right: 10px;
         font-weight: 500;
+
+        &:hover {
+            color: darken($blue, 15%);
+            text-decoration: underline;
+        }
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .logo {
+        display: none;
     }
 }

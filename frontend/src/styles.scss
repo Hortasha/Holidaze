@@ -48,6 +48,10 @@
       border: none;
       background-color: $lightgreen;
       padding: 5px 30px;
+      
+      &:hover {
+        background-color: darken($lightgreen, 15%);
+      }
     }
   }
 
@@ -63,6 +67,10 @@
     border: none;
     background-color: $lightblue;
     padding: 5px 30px;
+
+    &:hover {
+      background-color: darken($lightblue, 15%);
+    }
   }
 
   &-disable {

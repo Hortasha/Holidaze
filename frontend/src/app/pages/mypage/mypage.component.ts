@@ -17,7 +17,7 @@ export class MypageComponent implements OnInit {
 
   ngOnInit() {
     if (environment.token === '') {
-      /*this.router.navigateByUrl('/login');*/
+      this.router.navigateByUrl('/login');
     }
   }
 

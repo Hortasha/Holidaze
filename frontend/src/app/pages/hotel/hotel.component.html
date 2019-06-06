@@ -2,7 +2,7 @@
   <div class="col-12">
     <h1 class="title" *ngIf="hotel">Rooms for {{ hotel.name }}</h1>
     <img *ngIf="hotel" [src]="hotel.image" [alt]="hotel.iamge">
-    <p><b>Hotel Location:</b> {{hotel.location}}</p>
+    <p *ngIf="hotel"><b>Hotel Location:</b> {{hotel.location}}</p>
   </div>
 </div>
 

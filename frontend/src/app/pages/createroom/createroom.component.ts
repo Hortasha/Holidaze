@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { environment } from './../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createroom',
@@ -13,9 +15,17 @@ export class CreateroomComponent implements OnInit {
   regFail = false;
   success = false;
 
-  constructor(private hotelService: HotelService) { }
+  constructor(
+    private hotelService: HotelService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+
+    if(environment.token === '') {
+      this.router.navigateByUrl('/login');
+    }
+
     this.form = new FormGroup({
       type: new FormControl('', [
         Validators.required,

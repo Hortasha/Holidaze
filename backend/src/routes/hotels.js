@@ -103,7 +103,6 @@ router.get('/rooms/:id', (req, res, next) => {
 
 //Create new room
 router.post('/rooms', checkAuth, (req, res, next) => {
-    console.log(req.body);
     HotelModel.find({ _id: req.body.hotelId }, function(err, hotel) {
         if(hotel.length > 0) {
             let room = new RoomModel({

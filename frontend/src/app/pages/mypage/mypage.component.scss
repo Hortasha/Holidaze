@@ -9,8 +9,27 @@
     text-align: center;
     color: $blue;
   }
+  
+  &:hover {
+    & .option-header {
+        color: darken($blue, 15%);
+    }
+  }
+}
 
-  &-description {
-
+@media only screen and (max-width: 575px) {
+  .option {
+    cursor: pointer;
+    border: none;
+    margin-bottom: 10px;
+  
+    &-header {
+      text-align: center;
+      color: $blue;
+    }
+  
+    &-description {
+      display: none;
+    }
   }
 }

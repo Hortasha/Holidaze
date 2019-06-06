@@ -39,7 +39,7 @@
     <p>Check what reservations have been made.</p>
   </div>
 </div>
-<div class="row option" (click)="contact()">
+<div *ngIf="type === 'Admin'" class="row option" (click)="contact()">
   <div class="col-sm-6 option-header">
     <h2>Contact Submissions</h2>
   </div>

@@ -5,4 +5,4 @@
   <a *ngIf="env.token === ''" routerLink="/register" routerLinkActive="active">Register</a>
   <a *ngIf="env.token !== ''" routerLink="/mypage" routerLinkActive="active">{{ env.username }}</a>
 </nav>
-<img src="./../../../assets/img/logo.png" alt="Holidaze" class="logo">
+<a routerLink="/" routerLinkActive="active"><img src="./../../../assets/img/logo.png" alt="Holidaze" class="logo"></a>

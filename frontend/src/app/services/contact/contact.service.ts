@@ -6,7 +6,9 @@ import { environment } from './../../../environments/environment';
   providedIn: 'root'
 })
 export class ContactService {
-  api = 'http://localhost:3000';
+  api = '';
+  //Below line for development above for build
+  //api = 'http://localhost:3000';
   httpOptions;
 
   constructor(private http: HttpClient) { }

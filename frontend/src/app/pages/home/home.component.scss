@@ -7,6 +7,10 @@
   background-color: $lightblue;
   padding: 5px 30px;
   float: right;
+
+  &:hover {
+    background-color: darken($lightblue, 15%);
+  }
 }
 
 .image {
