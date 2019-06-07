@@ -7,9 +7,9 @@ import { environment } from './../../../environments/environment';
 })
 export class HotelService {
 
-  api = '';
+  //api = '';
   //Below line for development above for build
-  //api = 'http://localhost:3000';
+  api = 'http://localhost:3003';
   httpOptions;
 
 

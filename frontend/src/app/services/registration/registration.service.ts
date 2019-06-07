@@ -7,8 +7,8 @@ import { UserModel } from 'src/app/models/user.model';
 })
 export class RegistrationService {
 
-  api = '';
-  //api = 'http://localhost:3000';
+  //api = '';
+  api = 'http://localhost:3003';
 
   httpOptions = {
     headers: new HttpHeaders({
