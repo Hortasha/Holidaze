@@ -8,7 +8,7 @@ make sure angular/cli is installed globally on your computer
 navigate into the frontend folder and run `npm install`
 
 ## Serve frontend
-Run'ng serve'
+Run `ng serve`
 
 You can now view the frontend on localhost:4200. This frontend does require backend to be running in order to work properly.
 
